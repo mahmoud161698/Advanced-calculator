@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة العمر وتوقع البرج مع نصائح مخصصة - محمود مطراوي</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="calculator">
+        <h1>حاسبة العمر وتوقع البرج مع نصائح مخصصة - محمود مطراوي</h1>
+        <label for="birthdate">تاريخ الميلاد:</label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAgeAndZodiac()">احسب العمر والبرج</button>
+        <table id="resultTable" style="display: none;">
+            <tr>
+                <th>المعلومة</th>
+                <th>القيمة</th>
+            </tr>
+        </table>
+        <label for="message">الرسالة المراد إرسالها:</label>
+        <textarea id="message" placeholder="أدخل النص الذي ترغب في إرساله عبر WhatsApp"></textarea>
+        <button onclick="sendMessage()">إرسال رسالة عبر WhatsApp</button>
+        <p><a id="whatsapp-link" href="#" target="_blank">التواصل عبر WhatsApp</a></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
