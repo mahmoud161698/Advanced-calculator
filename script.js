@@ -1,6 +1,7 @@
 var birthdate;
 var birthtime;
 var intervalId;
+var birthdayIntervalId;
 
 const zodiacSigns = {
     "الجدي": {
@@ -114,12 +115,16 @@ function calculateNextBirthday() {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
 
-    var countdownInterval = setInterval(function() {
+    if (birthdayIntervalId) {
+        clearInterval(birthdayIntervalId);
+    }
+
+    birthdayIntervalId = setInterval(function() {
         var now = new Date();
         var timeDifference = nextBirthday - now;
 
         if (timeDifference <= 0) {
-            clearInterval(countdownInterval);
+            clearInterval(birthdayIntervalId);
             updateResultTable('ageResultTable', 'عيد ميلادك القادم', 'عيد ميلادك اليوم!');
             return;
         }
@@ -188,48 +193,33 @@ function updateResultTable(tableId, key, value) {
     // Clear the table before adding new data
     table.innerHTML = '<tr><th>المعلومة</th><th>القيمة</th></tr>';
     
-    var newRow = table.insertRow(-1);
+    var newRow = table.insertRow();
     var cell1 = newRow.insertCell(0);
     var cell2 = newRow.insertCell(1);
-    cell1.textContent = key;
-    cell2.textContent = value;
-}
-
-function randomizeBirthTime() {
-    var randomHour = Math.floor(Math.random() * 24);
-    var randomMinute = Math.floor(Math.random() * 60);
-    var birthtime = `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`;
-    document.getElementById('birthtime').value = birthtime;
-}
-
-function contactDeveloper() {
-    window.location.href = 'https://wa.me/2001104865607';
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    var toggleButton = document.querySelector('.toggle-dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        toggleButton.textContent = '🌙';
-    } else {
-        toggleButton.textContent = '☀️';
-    }
+    cell1.innerHTML = key;
+    cell2.innerHTML = value;
 }
 
 function getCustomAdvice(age) {
-    if (age < 13) {
-        return "احرص على طاعة والديك وأداء واجباتك المدرسية بإتقان.";
-    } else if (age < 20) {
-        return "تقرب إلى الله ولا تنس صلواتك. استثمر وقتك في تطوير مهاراتك وتحديد أهدافك المستقبلية.";
-    } else if (age < 30) {
-        return "ابحث عن فرص لتطوير حياتك المهنية وفكر في بناء مستقبلك.";
+    if (age < 20) {
+        return "استمتع بوقتك وتعلم كل يوم شيئًا جديدًا.";
     } else if (age < 40) {
-        return "عامل أولادك باحترام وعلمهم العبادات. اهتم بصحتك البدنية والنفسية.";
-    } else if (age < 50) {
-        return "حافظ على التوازن بين العمل والحياة الشخصية. اهتم بتغذيتك وممارسة الرياضة بانتظام.";
+        return "ركز على تحقيق أهدافك وبناء مستقبلك.";
     } else if (age < 60) {
-        return "فكر في التخطيط لتقاعدك واستثمر في علاقاتك العائلية.";
+        return "استمتع بثمار عملك وكن قدوة للآخرين.";
     } else {
-        return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
+        return "استمتع بالحياة وشارك خبراتك مع الأجيال الجديدة.";
     }
-        }
+}
+
+function calculateAgeAndNextBirthday() {
+    calculateAge();
+    if (birthdayIntervalId) {
+        clearInterval(birthdayIntervalId);
+    }
+    calculateNextBirthday();
+}
+
+// Call this function when the birthdate or birthtime changes
+document.getElementById('birthdate').addEventListener('change', calculateAgeAndNextBirthday);
+document.getElementById('birthtime').addEventListener('change', calculateAgeAndNextBirthday);
