@@ -1,4 +1,5 @@
 var birthdate;
+var birthtime;
 var intervalId;
 
 const zodiacSigns = {
@@ -52,14 +53,25 @@ const zodiacSigns = {
     }
 };
 
-function calculateAgeAndZodiac() {
+function showSection(section) {
+    document.getElementById('ageSection').classList.add('hidden');
+    document.getElementById('zodiacSection').classList.add('hidden');
+    document.getElementById(section + 'Section').classList.remove('hidden');
+}
+
+function calculateAge() {
     var birthdateString = document.getElementById('birthdate').value;
+    var birthtimeString = document.getElementById('birthtime').value;
     if (!birthdateString) {
         alert('يرجى إدخال تاريخ الميلاد.');
         return;
     }
+    if (!birthtimeString) {
+        alert('يرجى إدخال ساعة الميلاد.');
+        return;
+    }
 
-    birthdate = new Date(birthdateString);
+    birthdate = new Date(birthdateString + 'T' + birthtimeString);
     var today = new Date();
 
     if (today < birthdate) {
@@ -73,7 +85,9 @@ function calculateAgeAndZodiac() {
 
     intervalId = setInterval(updateAge, 1000);
     updateAge();
-    findZodiacSign(birthdate);
+    calculateNextBirthday();
+    const customAdvice = getCustomAdvice(new Date().getFullYear() - birthdate.getFullYear());
+    updateResultTable('ageResultTable', 'نصيحة مخصصة', customAdvice);
 }
 
 function updateAge() {
@@ -90,7 +104,44 @@ function updateAge() {
     var days = ageDays % 365;
     var years = Math.floor(ageDays / 365);
 
-    updateResultTable('العمر', `${years} سنة و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
+    updateResultTable('ageResultTable', 'العمر', `${years} سنة و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
+}
+
+function calculateNextBirthday() {
+    var today = new Date();
+    var nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+    if (today > nextBirthday) {
+        nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+    }
+
+    var countdownInterval = setInterval(function() {
+        var now = new Date();
+        var timeDifference = nextBirthday - now;
+
+        if (timeDifference <= 0) {
+            clearInterval(countdownInterval);
+            updateResultTable('ageResultTable', 'عيد ميلادك القادم', 'عيد ميلادك اليوم!');
+            return;
+        }
+
+        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        updateResultTable('ageResultTable', 'عيد ميلادك القادم', `${days} يوم, ${hours} ساعة, ${minutes} دقيقة, ${seconds} ثانية`);
+    }, 1000);
+}
+
+function calculateZodiac() {
+    var zodiacBirthdateString = document.getElementById('zodiacBirthdate').value;
+    if (!zodiacBirthdateString) {
+        alert('يرجى إدخال تاريخ الميلاد.');
+        return;
+    }
+
+    var zodiacBirthdate = new Date(zodiacBirthdateString);
+    findZodiacSign(zodiacBirthdate);
 }
 
 function findZodiacSign(date) {
@@ -125,12 +176,47 @@ function findZodiacSign(date) {
     }
 
     const signInfo = zodiacSigns[zodiacSign];
-    updateResultTable('البرج', zodiacSign);
-    updateResultTable('صفات البرج', signInfo.traits);
-    updateResultTable('نصيحة البرج', signInfo.advice);
+    updateResultTable('zodiacResultTable', 'البرج', zodiacSign);
+    updateResultTable('zodiacResultTable', 'صفات البرج', signInfo.traits);
+    updateResultTable('zodiacResultTable', 'نصيحة البرج', signInfo.advice);
+}
 
-    const customAdvice = getCustomAdvice(new Date().getFullYear() - date.getFullYear());
-    updateResultTable('نصيحة مخصصة', customAdvice);
+function updateResultTable(tableId, key, value) {
+    var table = document.getElementById(tableId);
+    table.style.display = 'table';
+    
+    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
+    
+    if (existingRow) {
+        existingRow.cells[1].textContent = value;
+    } else {
+        var newRow = table.insertRow(-1);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        cell1.textContent = key;
+        cell2.textContent = value;
+    }
+}
+
+function randomizeBirthTime() {
+    var randomHour = Math.floor(Math.random() * 24);
+    var randomMinute = Math.floor(Math.random() * 60);
+    var birthtime = `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`;
+    document.getElementById('birthtime').value = birthtime;
+}
+
+function contactDeveloper() {
+    window.location.href = 'https://wa.me/2001104865607';
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    var toggleButton = document.querySelector('.toggle-dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+        toggleButton.textContent = '🌙';
+    } else {
+        toggleButton.textContent = '☀️';
+    }
 }
 
 function getCustomAdvice(age) {
@@ -149,33 +235,4 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-}
-
-function updateResultTable(key, value) {
-    var table = document.getElementById('resultTable');
-    table.style.display = 'table';
-    
-    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
-    
-    if (existingRow) {
-        existingRow.cells[1].textContent = value;
-    } else {
-        var newRow = table.insertRow(-1);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        cell1.textContent = key;
-        cell2.textContent = value;
-    }
-}
-
-function updateWhatsAppLink() {
-    var text = encodeURIComponent(document.getElementById('message').value);
-    var whatsappLink = 'https://api.whatsapp.com/send?phone=+2001104865607&text=' + text;
-    document.getElementById('whatsapp-link').setAttribute('href', whatsappLink);
-}
-
-function sendMessage() {
-    updateWhatsAppLink();
-    var whatsappLink = document.getElementById('whatsapp-link').getAttribute('href');
-    window.open(whatsappLink, '_blank');
 }
