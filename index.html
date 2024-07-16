@@ -7,21 +7,39 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()">☀️</button>
     <div id="calculator">
-        <h1>حاسبة العمر وتوقع البرج مع نصائح مخصصة - محمود مطراوي</h1>
-        <label for="birthdate">تاريخ الميلاد:</label>
-        <input type="date" id="birthdate">
-        <button onclick="calculateAgeAndZodiac()">احسب العمر والبرج</button>
-        <table id="resultTable" style="display: none;">
-            <tr>
-                <th>المعلومة</th>
-                <th>القيمة</th>
-            </tr>
-        </table>
-        <label for="message">الرسالة المراد إرسالها:</label>
-        <textarea id="message" placeholder="أدخل النص الذي ترغب في إرساله عبر WhatsApp"></textarea>
-        <button onclick="sendMessage()">إرسال رسالة عبر WhatsApp</button>
-        <p><a id="whatsapp-link" href="#" target="_blank">التواصل عبر WhatsApp</a></p>
+        <h1>حاسبة العمر with MAHMOUD MATRAWY</h1>
+        <div class="options">
+            <button onclick="showSection('age')">احسب العمر</button>
+            <button onclick="showSection('zodiac')">أنت والنجوم</button>
+            <button onclick="contactDeveloper()">تواصل معنا</button>
+        </div>
+        <div id="ageSection" class="section hidden">
+            <label for="birthdate">تاريخ الميلاد:</label>
+            <input type="date" id="birthdate">
+            <label for="birthtime">ساعة الميلاد:</label>
+            <input type="time" id="birthtime">
+            <button onclick="calculateAge()">احسب العمر</button>
+            <button onclick="randomizeBirthTime()">اختيار ساعة عشوائية</button>
+            <table id="ageResultTable" style="display: none;">
+                <tr>
+                    <th>المعلومة</th>
+                    <th>القيمة</th>
+                </tr>
+            </table>
+        </div>
+        <div id="zodiacSection" class="section hidden">
+            <label for="zodiacBirthdate">تاريخ الميلاد:</label>
+            <input type="date" id="zodiacBirthdate">
+            <button onclick="calculateZodiac()">أنت والنجوم</button>
+            <table id="zodiacResultTable" style="display: none;">
+                <tr>
+                    <th>المعلومة</th>
+                    <th>القيمة</th>
+                </tr>
+            </table>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
