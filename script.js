@@ -185,14 +185,17 @@ function updateResultTable(tableId, key, value) {
     var table = document.getElementById(tableId);
     table.style.display = 'table';
     
-    // Clear the table before adding new data
-    table.innerHTML = '<tr><th>المعلومة</th><th>القيمة</th></tr>';
+    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
     
-    var newRow = table.insertRow(-1);
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    cell1.textContent = key;
-    cell2.textContent = value;
+    if (existingRow) {
+        existingRow.cells[1].textContent = value;
+    } else {
+        var newRow = table.insertRow(-1);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        cell1.textContent = key;
+        cell2.textContent = value;
+    }
 }
 
 function randomizeBirthTime() {
