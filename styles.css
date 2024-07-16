@@ -1,22 +1,41 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: url('https://images.pexels.com/photos/3778997/pexels-photo-3778997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    color: #333;
+    transition: background-color 0.5s, color 0.5s;
 }
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
 h1 {
     color: #333;
     animation: fadeIn 2s;
     text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
 }
+
+body.dark-mode h1 {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
 #calculator {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
@@ -26,13 +45,19 @@ h1 {
     max-width: 600px;
     margin-top: 20px;
 }
+
+body.dark-mode #calculator {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
 label {
     display: block;
     margin: 10px 0;
     font-size: 18px;
-    color: #555;
 }
-input[type="date"], textarea {
+
+input[type="date"], input[type="time"], textarea {
     width: calc(100% - 20px);
     padding: 8px;
     font-size: 16px;
@@ -40,10 +65,18 @@ input[type="date"], textarea {
     border-radius: 4px;
     margin-bottom: 10px;
 }
+
+body.dark-mode input[type="date"], body.dark-mode input[type="time"], body.dark-mode textarea {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
 textarea {
     height: 100px;
     resize: vertical;
 }
+
 button {
     padding: 10px 20px;
     font-size: 18px;
@@ -55,33 +88,109 @@ button {
     transition: background-color 0.3s ease;
     margin-top: 10px;
 }
+
 button:hover {
     background-color: #45a049;
 }
+
+body.dark-mode button {
+    background-color: #4CAF50;
+}
+
+body.dark-mode button:hover {
+    background-color: #45a049;
+}
+
 #result, #zodiacResult, #customAdvice {
     margin-top: 20px;
     font-size: 18px;
     color: #333;
     animation: slideIn 1s;
 }
+
+body.dark-mode #result, body.dark-mode #zodiacResult, body.dark-mode #customAdvice {
+    color: #fff;
+}
+
 @keyframes slideIn {
     from { transform: translateY(50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: right;
 }
+
+body.dark-mode th, body.dark-mode td {
+    border-color: #555;
+}
+
 th {
     background-color: #4CAF50;
     color: white;
 }
+
+body.dark-mode th {
+    background-color: #4CAF50;
+}
+
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+body.dark-mode tr:nth-child(even) {
+    background-color: #333;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.options button {
+    background-color: #007BFF;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.options button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .toggle-dark-mode {
+    color: #fff;
+}
+
+.toggle-dark-mode:hover {
+    color: #555;
+}
+
+body.dark-mode .toggle-dark-mode:hover {
+    color: #ccc;
 }
