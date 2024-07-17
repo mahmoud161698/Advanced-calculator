@@ -37,18 +37,22 @@ body.dark-mode h1 {
 }
 
 #calculator {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: none; /* Removed shadow for full transparency */
     padding: 20px;
     width: 90%;
     max-width: 600px;
     margin-top: 20px;
+    color: #333; /* Darker text color for better visibility */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
 }
 
 body.dark-mode #calculator {
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
+    box-shadow: none;
+    color: #fff; /* Lighter text color for dark mode */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
 }
 
 label {
@@ -193,4 +197,4 @@ body.dark-mode .toggle-dark-mode {
 
 body.dark-mode .toggle-dark-mode:hover {
     color: #ccc;
-}
+    }
