@@ -1,6 +1,7 @@
 var birthdate;
 var birthtime;
 var intervalId;
+var countdownInterval;
 
 const zodiacSigns = {
     "الجدي": {
@@ -114,7 +115,12 @@ function calculateNextBirthday() {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
 
-    var countdownInterval = setInterval(function() {
+    // Clear any existing countdown interval
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+
+    countdownInterval = setInterval(function() {
         var now = new Date();
         var timeDifference = nextBirthday - now;
 
@@ -235,4 +241,4 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-                                             }
+                            }
