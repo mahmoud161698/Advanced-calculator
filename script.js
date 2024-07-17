@@ -115,7 +115,6 @@ function calculateNextBirthday() {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
 
-    // Clear any existing countdown interval
     if (countdownInterval) {
         clearInterval(countdownInterval);
     }
@@ -241,4 +240,4 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-}
+            }
