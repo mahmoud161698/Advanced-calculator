@@ -21,14 +21,16 @@ h1 {
     color: #333;
     animation: fadeIn 2s;
     text-align: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0); /* Completely transparent background */
     padding: 10px;
     border-radius: 8px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
 }
 
 body.dark-mode h1 {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
     color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
 }
 
 @keyframes fadeIn {
@@ -73,13 +75,13 @@ input[type="date"], input[type="time"], textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
     color: #333;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
 }
 
 body.dark-mode input[type="date"], body.dark-mode input[type="time"], body.dark-mode textarea {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background in dark mode */
+    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
     color: #fff;
     border-color: #555;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
@@ -159,20 +161,20 @@ body.dark-mode th, body.dark-mode td {
 }
 
 th {
-    background-color: rgba(76, 175, 80, 0.8); /* Semi-transparent green background */
+    background-color: rgba(76, 175, 80, 0); /* Completely transparent background */
     color: white;
 }
 
 body.dark-mode th {
-    background-color: rgba(76, 175, 80, 0.8); /* Semi-transparent green background in dark mode */
+    background-color: rgba(76, 175, 80, 0); /* Completely transparent background in dark mode */
 }
 
 tr:nth-child(even) {
-    background-color: rgba(242, 242, 242, 0.5); /* Semi-transparent light gray background */
+    background-color: rgba(242, 242, 242, 0); /* Completely transparent background */
 }
 
 body.dark-mode tr:nth-child(even) {
-    background-color: rgba(51, 51, 51, 0.5); /* Semi-transparent dark gray background in dark mode */
+    background-color: rgba(51, 51, 51, 0); /* Completely transparent background in dark mode */
 }
 
 .options {
@@ -218,4 +220,4 @@ body.dark-mode .toggle-dark-mode {
 
 body.dark-mode .toggle-dark-mode:hover {
     color: #ccc;
-    }
+}
