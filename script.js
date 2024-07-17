@@ -102,14 +102,33 @@ function updateAge() {
     var ageHours = Math.floor(ageMinutes / 60);
     var hours = ageHours % 24;
     var ageDays = Math.floor(ageHours / 24);
-    var days = ageDays % 30; // Assuming each month has 30 days for simplicity
-    var ageMonths = Math.floor(ageDays / 30);
-    var months = ageMonths % 12;
-    var years = Math.floor(ageMonths / 12);
 
-    // Calculate weeks separately
-    var weeks = Math.floor(days / 7);
-    days = days % 7;
+    // Calculate years, months, and days more accurately
+    var years = today.getFullYear() - birthdate.getFullYear();
+    var months = today.getMonth() - birthdate.getMonth();
+    var birthdateDay = birthdate.getDate();
+    var todayDay = today.getDate();
+
+    if (todayDay < birthdateDay) {
+        months--;
+        todayDay += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    var daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    var daysDifference = todayDay - birthdateDay;
+    if (daysDifference < 0) {
+        months--;
+        daysDifference += daysInMonth;
+    }
+
+    // Calculate weeks and remaining days
+    var weeks = Math.floor(daysDifference / 7);
+    var days = daysDifference % 7;
 
     updateResultTable('ageResultTable', 'العمر', `${years} سنة و ${months} أشهر و ${weeks} أسابيع و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
 }
