@@ -89,9 +89,6 @@ function calculateAge() {
     calculateNextBirthday();
     const customAdvice = getCustomAdvice(new Date().getFullYear() - birthdate.getFullYear());
     updateResultTable('ageResultTable', 'نصيحة مخصصة', customAdvice);
-
-    // Show share buttons after calculating age
-    document.getElementById('shareButtonsAge').classList.remove('hidden');
 }
 
 function updateAge() {
@@ -175,9 +172,6 @@ function calculateZodiac() {
 
     var zodiacBirthdate = new Date(zodiacBirthdateString);
     findZodiacSign(zodiacBirthdate);
-
-    // Show share buttons after calculating zodiac
-    document.getElementById('shareButtonsZodiac').classList.remove('hidden');
 }
 
 function findZodiacSign(date) {
@@ -271,33 +265,4 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-}
-
-// Share functions
-function shareOnFacebook() {
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-
-function shareOnTwitter() {
-    const text = encodeURIComponent('Check out my age calculation!');
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-}
-
-function shareOnLinkedIn() {
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}`, '_blank');
-}
-
-function shareOnWhatsApp() {
-    const text = encodeURIComponent('Check out my age calculation!');
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://wa.me/?text=${text} ${url}`, '_blank');
-}
-
-function shareViaEmail() {
-    const subject = encodeURIComponent('Check out my age calculation!');
-    const body = encodeURIComponent('I calculated my age using this tool: ' + window.location.href);
-    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
 }
