@@ -138,48 +138,57 @@ function updateResultTable(tableId, key, value) {
 function updateAge() {
     var today = new Date();
     var ageMilliseconds = today - birthdate;
-    var ageSeconds = Math.floor(ageMilliseconds / 1000);
-
-    var seconds = ageSeconds % 60;
-    var ageMinutes = Math.floor(ageSeconds / 60);
-    var minutes = ageMinutes % 60;
-    var ageHours = Math.floor(ageMinutes / 60);
-    var hours = ageHours % 24;
-    var ageDays = Math.floor(ageHours / 24);
-
-    // Calculate years, months, and days more accurately
+    
+    // حساب السنوات والأشهر والأيام بدقة
     var years = today.getFullYear() - birthdate.getFullYear();
     var months = today.getMonth() - birthdate.getMonth();
-    var birthdateDay = birthdate.getDate();
-    var todayDay = today.getDate();
+    var days = today.getDate() - birthdate.getDate();
 
-    if (todayDay < birthdateDay) {
+    // تصحيح الحسابات إذا كان اليوم الحالي قبل يوم الميلاد في الشهر الحالي
+    if (days < 0) {
         months--;
-        todayDay += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        var lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += lastMonth.getDate();
     }
 
+    // تصحيح الحسابات إذا كان الشهر الحالي قبل شهر الميلاد
     if (months < 0) {
         years--;
         months += 12;
     }
 
-    var daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-    var daysDifference = todayDay - birthdateDay;
-    if (daysDifference < 0) {
-        months--;
-        daysDifference += daysInMonth;
+    // حساب الأسابيع والأيام المتبقية
+    var totalDays = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24));
+    var weeks = Math.floor(totalDays / 7);
+    var remainingDays = totalDays % 7;
+
+    // حساب الساعات والدقائق والثواني
+    var hours = today.getHours() - birthdate.getHours();
+    var minutes = today.getMinutes() - birthdate.getMinutes();
+    var seconds = today.getSeconds() - birthdate.getSeconds();
+
+    // تصحيح الحسابات للساعات والدقائق والثواني
+    if (seconds < 0) {
+        minutes--;
+        seconds += 60;
+    }
+    if (minutes < 0) {
+        hours--;
+        minutes += 60;
+    }
+    if (hours < 0) {
+        days--;
+        hours += 24;
     }
 
-    // Calculate weeks and remaining days
-    var weeks = Math.floor(daysDifference / 7);
-    var days = daysDifference % 7;
-
-    // Update the result table with the new calculations
-    updateResultTable('ageResultTable', 'عمرك', `${years} سنة و ${months} أشهر و ${weeks} أسابيع و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
-    updateResultTable('ageResultTable', 'العمر بالأشهر', `${years * 12 + months} أشهر`);
-    updateResultTable('ageResultTable', 'العمر بالأسابيع', `${Math.floor(ageDays / 7)} أسابيع`);
-    updateResultTable('ageResultTable', 'العمر بالأيام', `${ageDays} أيام`);
-    updateResultTable('ageResultTable', 'العمر بالدقائق', `${ageMinutes} دقائق`);
+    // تحديث جدول النتائج
+    updateResultTable('ageResultTable', 'عمرك', `${years} سنة و ${months} أشهر و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
+    updateResultTable('ageResultTable', 'العمر بالأشهر', `${years * 12 + months} أشهر و ${days} أيام`);
+    updateResultTable('ageResultTable', 'العمر بالأسابيع', `${weeks} أسابيع و ${remainingDays} أيام`);
+    updateResultTable('ageResultTable', 'العمر بالأيام', `${totalDays} أيام`);
+    updateResultTable('ageResultTable', 'العمر بالساعات', `${Math.floor(ageMilliseconds / (1000 * 60 * 60))} ساعات`);
+    updateResultTable('ageResultTable', 'العمر بالدقائق', `${Math.floor(ageMilliseconds / (1000 * 60))} دقائق`);
+    updateResultTable('ageResultTable', 'العمر بالثواني', `${Math.floor(ageMilliseconds / 1000)} ثواني`);
 }
 function calculateNextBirthday() {
     var today = new Date();
@@ -313,4 +322,4 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-}
+                                        }
