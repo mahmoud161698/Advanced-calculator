@@ -1,14 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
-    background: url('https://images.pexels.com/photos/3778997/pexels-photo-3778997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center fixed;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* صورة خلفية مناسبة */
     background-size: cover;
-    margin: 0;
+    background-position: center;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
+    color: white; /* تغيير لون النص ليكون مرئيًا على الخلفية */
     transition: background-color 0.5s, color 0.5s;
 }
 
@@ -18,27 +15,85 @@ body.dark-mode {
 }
 
 h1 {
-    color: #333;
-    animation: fadeIn 2s;
-    text-align: center;
-    background: rgba(255, 255, 255, 0); /* Completely transparent background */
+    color: #ff4d4d;
+}
+
+#heart {
+    font-size: 100px;
+    color: #ff4d4d;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+input, button {
+    margin: 10px;
     padding: 10px;
-    border-radius: 8px;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
 }
 
-body.dark-mode h1 {
-    background: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
+button {
+    background-color: #ff4d4d;
+    color: white;
+    cursor: pointer;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+#result {
+    font-size: 24px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنتيجة */
+    padding: 10px;
+    border-radius: 5px;
 }
 
-#calculator {
+.heart {
+    position: fixed;
+    top: -1vh;
+    font-size: 20px;
+    transform: translateY(0);
+    animation: fall 3s linear forwards;
+    color: #ff4d4d;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh);
+    }
+}
+
+#shareButtons {
+    margin-top: 20px;
+    display: none;
+}
+
+.shareBtn {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.shareBtn:last-child {
+    background-color: #1da1f2;
+}
+
+.programmer-message {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Additional styles for the main page and other sections */
+#mainPage, .section {
     background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
     border-radius: 8px;
     box-shadow: none; /* Removed shadow for full transparency */
@@ -50,7 +105,7 @@ body.dark-mode h1 {
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
 }
 
-body.dark-mode #calculator {
+body.dark-mode #mainPage, body.dark-mode .section {
     background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
     box-shadow: none;
     color: #fff; /* Lighter text color for dark mode */
@@ -220,4 +275,72 @@ body.dark-mode .toggle-dark-mode {
 
 body.dark-mode .toggle-dark-mode:hover {
     color: #ccc;
-                                  }
+}
+
+.backButton {
+    background-color: #FF4D4D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.backButton:hover {
+    background-color: #FF3333;
+}
+
+/* Welcome Screen Styles */
+#welcomeScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease;
+}
+
+#welcomeText {
+    color: #ff0000;
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#portal {
+    width: 100px;
+    height: 100px;
+    background-color: #000;
+    border-radius: 50%;
+    animation: portalAnimation 2s infinite;
+    box-shadow: 0 0 20px #ff0000;
+}
+
+@keyframes portalAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Add animation for the main page */
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#mainPage {
+    animation: slideIn 1s;
+    }
