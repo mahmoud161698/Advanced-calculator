@@ -54,10 +54,35 @@ const zodiacSigns = {
     }
 };
 
-function showSection(section) {
+const zodiacCompatibility = {
+    "الجدي": ["الجدي", "الثور", "الجوزاء", "السرطان", "العقرب", "القوس"],
+    "الدلو": ["الدلو", "الحوت", "الجدي", "الثور", "الجوزاء", "السرطان"],
+    "الحوت": ["الحوت", "الدلو", "الجدي", "الثور", "الجوزاء", "السرطان"],
+    "الحمل": ["الحمل", "الثور", "الجوزاء", "السرطان", "العقرب", "القوس"],
+    "الثور": ["الثور", "الجدي", "الحمل", "الجوزاء", "السرطان", "العقرب"],
+    "الجوزاء": ["الجوزاء", "الجدي", "الحمل", "الثور", "السرطان", "العقرب"],
+    "السرطان": ["السرطان", "الجدي", "الحمل", "الثور", "الجوزاء", "العقرب"],
+    "الأسد": ["الأسد", "العذراء", "الميزان", "العقرب", "القوس", "الجدي"],
+    "العذراء": ["العذراء", "الأسد", "الميزان", "العقرب", "القوس", "الجدي"],
+    "الميزان": ["الميزان", "الأسد", "العذراء", "العقرب", "القوس", "الجدي"],
+    "العقرب": ["العقرب", "الجدي", "الحمل", "الثور", "الجوزاء", "السرطان"],
+    "القوس": ["القوس", "الجدي", "الحمل", "الثور", "الجوزاء", "السرطان"]
+};
+
+function loadSection(section) {
+    document.getElementById('mainPage').classList.add('hidden');
     document.getElementById('ageSection').classList.add('hidden');
     document.getElementById('zodiacSection').classList.add('hidden');
+    document.getElementById('loveSection').classList.add('hidden');
     document.getElementById(section + 'Section').classList.remove('hidden');
+}
+
+function goBack() {
+    document.getElementById('mainPage').classList.remove('hidden');
+    document.getElementById('ageSection').classList.add('hidden');
+    document.getElementById('zodiacSection').classList.add('hidden');
+    document.getElementById('loveSection').classList.add('hidden');
+    document.getElementById('mainPage').style.animation = 'slideIn 1s';
 }
 
 function calculateAge() {
@@ -89,39 +114,6 @@ function calculateAge() {
     calculateNextBirthday();
     const customAdvice = getCustomAdvice(new Date().getFullYear() - birthdate.getFullYear());
     updateResultTable('ageResultTable', 'نصيحة مخصصة', customAdvice);
-}
-
-function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
-    table.style.display = 'table';
-    
-    var cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    var cell = document.getElementById(cellId);
-    if (cell) {
-        cell.textContent = value;
-    }
-}
-
-function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
-    table.style.display = 'table';
-    
-    var cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    var cell = document.getElementById(cellId);
-    if (cell) {
-        cell.textContent = value;
-    }
-}
-
-function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
-    table.style.display = 'table';
-    
-    var cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    var cell = document.getElementById(cellId);
-    if (cell) {
-        cell.textContent = value;
-    }
 }
 
 function updateResultTable(tableId, key, value) {
@@ -190,6 +182,7 @@ function updateAge() {
     updateResultTable('ageResultTable', 'العمر بالدقائق', `${Math.floor(ageMilliseconds / (1000 * 60))} دقائق`);
     updateResultTable('ageResultTable', 'العمر بالثواني', `${Math.floor(ageMilliseconds / 1000)} ثواني`);
 }
+
 function calculateNextBirthday() {
     var today = new Date();
     var nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
@@ -228,7 +221,13 @@ function calculateZodiac() {
     }
 
     var zodiacBirthdate = new Date(zodiacBirthdateString);
-    findZodiacSign(zodiacBirthdate);
+    var zodiacSign = findZodiacSign(zodiacBirthdate);
+    var compatibility = zodiacCompatibility[zodiacSign];
+
+    updateResultTable('zodiacResultTable', 'البرج', zodiacSign);
+    updateResultTable('zodiacResultTable', 'صفات البرج', zodiacSigns[zodiacSign].traits);
+    updateResultTable('zodiacResultTable', 'نصيحة البرج', zodiacSigns[zodiacSign].advice);
+    updateResultTable('zodiacResultTable', 'توافق الأبراج', compatibility.join(', '));
 }
 
 function findZodiacSign(date) {
@@ -262,10 +261,7 @@ function findZodiacSign(date) {
         zodiacSign = "الجدي";
     }
 
-    const signInfo = zodiacSigns[zodiacSign];
-    updateResultTable('zodiacResultTable', 'البرج', zodiacSign);
-    updateResultTable('zodiacResultTable', 'صفات البرج', signInfo.traits);
-    updateResultTable('zodiacResultTable', 'نصيحة البرج', signInfo.advice);
+    return zodiacSign;
 }
 
 function updateResultTable(tableId, key, value) {
@@ -322,4 +318,51 @@ function getCustomAdvice(age) {
     } else {
         return "استمتع بوقتك مع العائلة والأحفاد. شارك خبراتك وحكمتك مع الآخرين.";
     }
-                                        }
+}
+
+// قياس الحب
+function calculateLove() {
+    const name1 = document.getElementById('name1').value;
+    const name2 = document.getElementById('name2').value;
+    
+    if (name1 && name2) {
+        const lovePercentage = Math.floor(Math.random() * 101);
+        let message = getLoveMessage(lovePercentage);
+        document.getElementById('result').innerHTML = `نسبة الحب بين ${name1} و ${name2} هي: ${lovePercentage}%<br>${message}`;
+        document.getElementById('shareButtons').style.display = 'block';
+    } else {
+        alert("الرجاء إدخال الاسمين!");
+    }
+}
+
+function getLoveMessage(percentage) {
+    if (percentage < 50) {
+        return "غير يسطا العلاقه دي مش نافعة 😂";
+    } else if (percentage < 80) {
+        return "العب يا برعي يا خاربها 😂";
+    } else {
+        return "اوبا! يا مقطع السمكة وديلها 😂";
+    }
+}
+
+function share(platform) {
+    const result = document.getElementById('result').innerText;
+    let url = '';
+    if (platform === 'facebook') {
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(result)}`;
+    } else if (platform === 'twitter') {
+        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}`;
+    }
+    window.open(url, '_blank');
+}
+
+// Welcome Screen Animation
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        document.getElementById('welcomeScreen').style.opacity = '0';
+        setTimeout(function() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('mainPage').classList.remove('hidden');
+        }, 1000);
+    }, 3000);
+});
