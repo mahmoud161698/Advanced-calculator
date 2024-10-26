@@ -3,67 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة العمر المتقدمة وتوقع البرج مع نصائح مخصصة - محمود مطراوي</title>
+    <title>موقع متعدد الوظائف - محمود مطراوي</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="dark-mode">
+    <div id="welcomeScreen">
+        <h1 id="welcomeText">Welcome to Elmatrawy home</h1>
+        <div id="portal"></div>
+    </div>
+
     <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙</button>
-    <div id="calculator">
-        <h1>حاسبة العمر المتقدمة</h1>
+    <div id="mainPage" class="hidden">
+        <h1>موقع متعدد الوظائف</h1>
         <div class="options">
-            <button onclick="showSection('age')">احسب العمر</button>
-            <button onclick="showSection('zodiac')">أنت والنجوم</button>
+            <button onclick="loadSection('age')">احسب العمر</button>
+            <button onclick="loadSection('zodiac')">أنت والنجوم</button>
+            <button onclick="loadSection('love')">قياس الحب</button>
             <button onclick="contactDeveloper()">تواصل معنا</button>
         </div>
-        <div id="ageSection" class="section hidden">
-            <label for="birthdate">تاريخ الميلاد:</label>
-            <input type="date" id="birthdate">
-            <label for="birthtime">ساعة الميلاد:</label>
-            <input type="time" id="birthtime">
-            <button onclick="calculateAge()">احسب العمر</button>
-            <button onclick="randomizeBirthTime()">اختيار ساعة عشوائية</button>
-            <table id="ageResultTable" style="display: none;">
-                <tr>
-                    <th>المعلومة</th>
-                    <th>القيمة</th>
-                </tr>
-                <tr>
-                    <td>عمرك</td>
-                    <td id="ageInYearsMonthsWeeksDaysHoursMinutes"></td>
-                </tr>
-                <tr>
-                    <td>العمر بالأشهر</td>
-                    <td id="ageInMonths"></td>
-                </tr>
-                <tr>
-                    <td>العمر بالأسابيع</td>
-                    <td id="ageInWeeks"></td>
-                </tr>
-                <tr>
-                    <td>العمر بالأيام</td>
-                    <td id="ageInDays"></td>
-                </tr>
-                <tr>
-                    <td>العمر بالدقائق</td>
-                    <td id="ageInMinutes"></td>
-                </tr>
-            </table>
+    </div>
+
+    <div id="ageSection" class="section hidden">
+        <button class="backButton" onclick="goBack()">رجوع</button>
+        <h1>حاسبة العمر المتقدمة</h1>
+        <label for="birthdate">تاريخ الميلاد:</label>
+        <input type="date" id="birthdate">
+        <label for="birthtime">ساعة الميلاد:</label>
+        <input type="time" id="birthtime">
+        <button onclick="calculateAge()">احسب العمر</button>
+        <button onclick="randomizeBirthTime()">اختيار ساعة عشوائية</button>
+        <table id="ageResultTable" style="display: none;">
+            <tr>
+                <th>المعلومة</th>
+                <th>القيمة</th>
+            </tr>
+            <tr>
+                <td>عمرك</td>
+                <td id="ageInYearsMonthsWeeksDaysHoursMinutes"></td>
+            </tr>
+            <tr>
+                <td>العمر بالأشهر</td>
+                <td id="ageInMonths"></td>
+            </tr>
+            <tr>
+                <td>العمر بالأسابيع</td>
+                <td id="ageInWeeks"></td>
+            </tr>
+            <tr>
+                <td>العمر بالأيام</td>
+                <td id="ageInDays"></td>
+            </tr>
+            <tr>
+                <td>العمر بالدقائق</td>
+                <td id="ageInMinutes"></td>
+            </tr>
+            <tr>
+                <td>عيد ميلادك القادم</td>
+                <td id="nextBirthday"></td>
+            </tr>
+            <tr>
+                <td>نصيحة مخصصة</td>
+                <td id="customAdvice"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="zodiacSection" class="section hidden">
+        <button class="backButton" onclick="goBack()">رجوع</button>
+        <h1>أنت والنجوم</h1>
+        <label for="zodiacBirthdate">تاريخ الميلاد:</label>
+        <input type="date" id="zodiacBirthdate">
+        <button onclick="calculateZodiac()">أنت والنجوم</button>
+        <table id="zodiacResultTable" style="display: none;">
+            <tr>
+                <th>المعلومة</th>
+                <th>القيمة</th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="loveSection" class="section hidden">
+        <button class="backButton" onclick="goBack()">رجوع</button>
+        <h1>مقياس الحب الخارق</h1>
+        <div id="heart">❤️</div>
+        <h2>اكتشف نسبة الحب بينكما!</h2>
+        <input type="text" id="name1" placeholder="الاسم الأول">
+        <input type="text" id="name2" placeholder="الاسم الثاني">
+        <br>
+        <button onclick="calculateLove()">احسب نسبة الحب!</button>
+        <div id="result"></div>
+        <div id="shareButtons">
+            <button class="shareBtn" onclick="share('facebook')">شارك على Facebook</button>
+            <button class="shareBtn" onclick="share('twitter')">شارك على Twitter</button>
         </div>
-        <div id="zodiacSection" class="section hidden">
-            <label for="zodiacBirthdate">تاريخ الميلاد:</label>
-            <input type="date" id="zodiacBirthdate">
-            <button onclick="calculateZodiac()">أنت والنجوم</button>
-            <table id="zodiacResultTable" style="display: none;">
-                <tr>
-                    <th>المعلومة</th>
-                    <th>القيمة</th>
-                </tr>
-            </table>
+        <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+        <audio id="resultSound" src="https://www.soundjay.com/misc/sounds/magic-chime-01.mp3"></audio>
+        <div class="programmer-message">
+            <p>تم برمجة الموقع بواسطة Mahmoud Matrawy</p>
         </div>
     </div>
+
     <footer>
         <p>تم تطوير هذا الموقع بواسطة Mahmoud Matrawy</p>
     </footer>
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
