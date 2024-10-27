@@ -36,6 +36,7 @@ input, button {
     font-size: 16px;
     border-radius: 5px;
     border: none;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 button {
@@ -44,12 +45,23 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #ff3333;
+    transform: scale(1.05);
+}
+
 #result {
     font-size: 24px;
     margin-top: 20px;
     background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنتيجة */
     padding: 10px;
     border-radius: 5px;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .heart {
@@ -80,10 +92,12 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.shareBtn:last-child {
+.shareBtn:hover {
     background-color: #1da1f2;
+    transform: scale(1.05);
 }
 
 .programmer-message {
@@ -103,6 +117,7 @@ button {
     margin-top: 20px;
     color: #333; /* Darker text color for better visibility */
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    transition: opacity 0.5s, transform 0.5s;
 }
 
 body.dark-mode #mainPage, body.dark-mode .section {
@@ -133,6 +148,7 @@ input[type="date"], input[type="time"], textarea {
     background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
     color: #333;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 body.dark-mode input[type="date"], body.dark-mode input[type="time"], body.dark-mode textarea {
@@ -155,13 +171,14 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s;
     margin-top: 10px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow */
 }
 
 button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
 body.dark-mode button {
@@ -262,7 +279,7 @@ body.dark-mode tr:nth-child(even) {
     font-size: 24px;
     cursor: pointer;
     color: #333;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s;
 }
 
 body.dark-mode .toggle-dark-mode {
@@ -271,6 +288,7 @@ body.dark-mode .toggle-dark-mode {
 
 .toggle-dark-mode:hover {
     color: #555;
+    transform: scale(1.1);
 }
 
 body.dark-mode .toggle-dark-mode:hover {
@@ -283,12 +301,13 @@ body.dark-mode .toggle-dark-mode:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s;
     margin-bottom: 20px;
 }
 
 .backButton:hover {
     background-color: #FF3333;
+    transform: scale(1.05);
 }
 
 /* Welcome Screen Styles */
