@@ -69,15 +69,15 @@ function loadSection(section) {
 
 function goBack() {
     document.getElementById('mainPage').classList.remove('hidden');
-    document.getElementById('ageSection').classList.add('hidden');
-    document.getElementById('zodiacSection').classList.add('hidden');
-    document.getElementById('loveSection').classList.add('hidden');
+    document.getElementById('ageSection').classList.remove('show');
+    document.getElementById('zodiacSection').classList.remove('show');
+    document.getElementById('loveSection').classList.remove('show');
     
     setTimeout(() => {
         document.getElementById('mainPage').classList.add('show');
-        document.getElementById('ageSection').classList.remove('show');
-        document.getElementById('zodiacSection').classList.remove('show');
-        document.getElementById('loveSection').classList.remove('show');
+        document.getElementById('ageSection').classList.add('hidden');
+        document.getElementById('zodiacSection').classList.add('hidden');
+        document.getElementById('loveSection').classList.add('hidden');
     }, 10); // قليلاً من التأخير لضمان تطبيق الأنميشن بشكل صحيح
 }
 
@@ -293,7 +293,12 @@ function toggleDarkMode() {
     } else {
         toggleButton.textContent = '☀️';
     }
-}
+    // إضافة تأثير بصري سريع للتبديل
+    document.body.style.transition = 'background-color 0.5s, color 0.5s';
+    setTimeout(() => {
+        document.body.style.transition = '';
+    }, 500);
+                                                      }
 
 function getCustomAdvice(age) {
     if (age < 13) {
