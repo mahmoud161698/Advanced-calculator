@@ -68,16 +68,16 @@ function loadSection(section) {
 }
 
 function goBack() {
-    document.getElementById('mainPage').classList.remove('show');
-    document.getElementById('ageSection').classList.remove('show');
-    document.getElementById('zodiacSection').classList.remove('show');
-    document.getElementById('loveSection').classList.remove('show');
+    document.getElementById('mainPage').classList.remove('hidden');
+    document.getElementById('ageSection').classList.add('hidden');
+    document.getElementById('zodiacSection').classList.add('hidden');
+    document.getElementById('loveSection').classList.add('hidden');
     
     setTimeout(() => {
         document.getElementById('mainPage').classList.add('show');
-        document.getElementById('ageSection').classList.add('hidden');
-        document.getElementById('zodiacSection').classList.add('hidden');
-        document.getElementById('loveSection').classList.add('hidden');
+        document.getElementById('ageSection').classList.remove('show');
+        document.getElementById('zodiacSection').classList.remove('show');
+        document.getElementById('loveSection').classList.remove('show');
     }, 10); // قليلاً من التأخير لضمان تطبيق الأنميشن بشكل صحيح
 }
 
@@ -323,6 +323,7 @@ function calculateLove() {
         let message = getLoveMessage(lovePercentage);
         document.getElementById('result').innerHTML = `نسبة الحب بين ${name1} و ${name2} هي: ${lovePercentage}%<br>${message}`;
         document.getElementById('shareButtons').style.display = 'block';
+        playSound('resultSound');
     } else {
         alert("الرجاء إدخال الاسمين!");
     }
@@ -347,6 +348,11 @@ function share(platform) {
         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}`;
     }
     window.open(url, '_blank');
+}
+
+function playSound(soundId) {
+    const sound = document.getElementById(soundId);
+    sound.play();
 }
 
 // Welcome Screen Animation
