@@ -362,3 +362,13 @@ body.dark-mode .toggle-dark-mode:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* تأثيرات بصرية لعرض النتائج */
+#result {
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+        }
