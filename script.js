@@ -1,4 +1,3 @@
-
 var birthdate;
 var birthtime;
 var intervalId;
@@ -56,21 +55,19 @@ const zodiacSigns = {
 };
 
 function loadSection(section) {
-    // إخفاء الأقسام الحالية مع تأثير الانتقال
     const sections = document.querySelectorAll('.section');
     sections.forEach((sec) => {
         sec.classList.remove('visible');
         setTimeout(() => {
             sec.classList.add('hidden');
-        }, 500); // تأخير لإخفاء القسم بعد الانتهاء من الانتقال
+        }, 500);
     });
 
-    // إظهار القسم الجديد مع تأثير الانتقال
     const newSection = document.getElementById(section + 'Section');
     newSection.classList.remove('hidden');
     setTimeout(() => {
         newSection.classList.add('visible');
-    }, 0); // تأخير بسيط للتأكد من أن الإخفاء قد اكتمل
+    }, 0);
 }
 
 function goBack() {
