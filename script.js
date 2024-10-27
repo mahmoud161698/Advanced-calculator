@@ -1,3 +1,4 @@
+
 var birthdate;
 var birthtime;
 var intervalId;
@@ -54,27 +55,22 @@ const zodiacSigns = {
     }
 };
 
-const zodiacCompatibility = {
-    "الجدي": ["الجدي", "الثور", "الجوزاء", "السرطان", "العقرب", "القوس"],
-    "الدلو": ["الدلو", "الحوت", "الجدي", "الثور", "الجوزاء", "السرطان"],
-    "الحوت": ["الحوت", "الدلو", "الجدي", "الثور", "الجوزاء", "السرطان"],
-    "الحمل": ["الحمل", "الثور", "الجوزاء", "السرطان", "العقرب", "القوس"],
-    "الثور": ["الثور", "الجدي", "الحمل", "الجوزاء", "السرطان", "العقرب"],
-    "الجوزاء": ["الجوزاء", "الجدي", "الحمل", "الثور", "السرطان", "العقرب"],
-    "السرطان": ["السرطان", "الجدي", "الحمل", "الثور", "الجوزاء", "العقرب"],
-    "الأسد": ["الأسد", "العذراء", "الميزان", "العقرب", "القوس", "الجدي"],
-    "العذراء": ["العذراء", "الأسد", "الميزان", "العقرب", "القوس", "الجدي"],
-    "الميزان": ["الميزان", "الأسد", "العذراء", "العقرب", "القوس", "الجدي"],
-    "العقرب": ["العقرب", "الجدي", "الحمل", "الثور", "الجوزاء", "السرطان"],
-    "القوس": ["القوس", "الجدي", "الحمل", "الثور", "الجوزاء", "السرطان"]
-};
-
 function loadSection(section) {
-    document.getElementById('mainPage').classList.add('hidden');
-    document.getElementById('ageSection').classList.add('hidden');
-    document.getElementById('zodiacSection').classList.add('hidden');
-    document.getElementById('loveSection').classList.add('hidden');
-    document.getElementById(section + 'Section').classList.remove('hidden');
+    // إخفاء الأقسام الحالية مع تأثير الانتقال
+    const sections = document.querySelectorAll('.section');
+    sections.forEach((sec) => {
+        sec.classList.remove('visible');
+        setTimeout(() => {
+            sec.classList.add('hidden');
+        }, 500); // تأخير لإخفاء القسم بعد الانتهاء من الانتقال
+    });
+
+    // إظهار القسم الجديد مع تأثير الانتقال
+    const newSection = document.getElementById(section + 'Section');
+    newSection.classList.remove('hidden');
+    setTimeout(() => {
+        newSection.classList.add('visible');
+    }, 0); // تأخير بسيط للتأكد من أن الإخفاء قد اكتمل
 }
 
 function goBack() {
@@ -82,7 +78,6 @@ function goBack() {
     document.getElementById('ageSection').classList.add('hidden');
     document.getElementById('zodiacSection').classList.add('hidden');
     document.getElementById('loveSection').classList.add('hidden');
-    document.getElementById('mainPage').style.animation = 'slideIn 1s';
 }
 
 function calculateAge() {
@@ -112,7 +107,7 @@ function calculateAge() {
     intervalId = setInterval(updateAge, 1000);
     updateAge();
     calculateNextBirthday();
-    const customAdvice = getCustomAdvice(new Date().getFullYear() - birthdate.getFullYear());
+    const customAdvice = getCustomAdvice(new Date().getFullYear() • birthdate.getFullYear());
     updateResultTable('ageResultTable', 'نصيحة مخصصة', customAdvice);
 }
 
@@ -120,46 +115,56 @@ function updateResultTable(tableId, key, value) {
     var table = document.getElementById(tableId);
     table.style.display = 'table';
     
-    var cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    var cell = document.getElementById(cellId);
-    if (cell) {
-        cell.textContent = value;
+    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
+    
+    if (existingRow) {
+        existingRow.cells[1].textContent = value;
+    } else {
+        var newRow = table.insertRow(-1);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        cell1.textContent = key;
+        cell2.textContent = value;
+        newRow.classList.add('result'); // إضافة كلاس النتيجة
     }
+
+    // إضافة تأثير الظهور
+    const resultCells = table.querySelectorAll('.result');
+    resultCells.forEach((cell) => {
+        cell.classList.remove('visible');
+        setTimeout(() => {
+            cell.classList.add('visible');
+        }, 0);
+    });
 }
 
 function updateAge() {
     var today = new Date();
-    var ageMilliseconds = today - birthdate;
+    var ageMilliseconds = today • birthdate;
     
-    // حساب السنوات والأشهر والأيام بدقة
-    var years = today.getFullYear() - birthdate.getFullYear();
-    var months = today.getMonth() - birthdate.getMonth();
-    var days = today.getDate() - birthdate.getDate();
+    var years = today.getFullYear() • birthdate.getFullYear();
+    var months = today.getMonth() • birthdate.getMonth();
+    var days = today.getDate() • birthdate.getDate();
 
-    // تصحيح الحسابات إذا كان اليوم الحالي قبل يوم الميلاد في الشهر الحالي
     if (days < 0) {
         months--;
         var lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
         days += lastMonth.getDate();
     }
 
-    // تصحيح الحسابات إذا كان الشهر الحالي قبل شهر الميلاد
     if (months < 0) {
         years--;
         months += 12;
     }
 
-    // حساب الأسابيع والأيام المتبقية
     var totalDays = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24));
     var weeks = Math.floor(totalDays / 7);
     var remainingDays = totalDays % 7;
 
-    // حساب الساعات والدقائق والثواني
-    var hours = today.getHours() - birthdate.getHours();
-    var minutes = today.getMinutes() - birthdate.getMinutes();
-    var seconds = today.getSeconds() - birthdate.getSeconds();
+    var hours = today.getHours() • birthdate.getHours();
+    var minutes = today.getMinutes() • birthdate.getMinutes();
+    var seconds = today.getSeconds() • birthdate.getSeconds();
 
-    // تصحيح الحسابات للساعات والدقائق والثواني
     if (seconds < 0) {
         minutes--;
         seconds += 60;
@@ -173,7 +178,6 @@ function updateAge() {
         hours += 24;
     }
 
-    // تحديث جدول النتائج
     updateResultTable('ageResultTable', 'عمرك', `${years} سنة و ${months} أشهر و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
     updateResultTable('ageResultTable', 'العمر بالأشهر', `${years * 12 + months} أشهر و ${days} أيام`);
     updateResultTable('ageResultTable', 'العمر بالأسابيع', `${weeks} أسابيع و ${remainingDays} أيام`);
@@ -196,7 +200,7 @@ function calculateNextBirthday() {
 
     countdownInterval = setInterval(function() {
         var now = new Date();
-        var timeDifference = nextBirthday - now;
+        var timeDifference = nextBirthday • now;
 
         if (timeDifference <= 0) {
             clearInterval(countdownInterval);
@@ -221,13 +225,7 @@ function calculateZodiac() {
     }
 
     var zodiacBirthdate = new Date(zodiacBirthdateString);
-    var zodiacSign = findZodiacSign(zodiacBirthdate);
-    var compatibility = zodiacCompatibility[zodiacSign];
-
-    updateResultTable('zodiacResultTable', 'البرج', zodiacSign);
-    updateResultTable('zodiacResultTable', 'صفات البرج', zodiacSigns[zodiacSign].traits);
-    updateResultTable('zodiacResultTable', 'نصيحة البرج', zodiacSigns[zodiacSign].advice);
-    updateResultTable('zodiacResultTable', 'توافق الأبراج', compatibility.join(', '));
+    findZodiacSign(zodiacBirthdate);
 }
 
 function findZodiacSign(date) {
@@ -261,24 +259,10 @@ function findZodiacSign(date) {
         zodiacSign = "الجدي";
     }
 
-    return zodiacSign;
-}
-
-function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
-    table.style.display = 'table';
-    
-    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
-    
-    if (existingRow) {
-        existingRow.cells[1].textContent = value;
-    } else {
-        var newRow = table.insertRow(-1);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        cell1.textContent = key;
-        cell2.textContent = value;
-    }
+    const signInfo = zodiacSigns[zodiacSign];
+    updateResultTable('zodiacResultTable', 'البرج', zodiacSign);
+    updateResultTable('zodiacResultTable', 'صفات البرج', signInfo.traits);
+    updateResultTable('zodiacResultTable', 'نصيحة البرج', signInfo.advice);
 }
 
 function randomizeBirthTime() {
