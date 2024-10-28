@@ -390,4 +390,4 @@ body.dark-mode .toggle-dark-mode:hover {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-        }
+}
