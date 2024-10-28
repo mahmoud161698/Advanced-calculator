@@ -298,7 +298,7 @@ function toggleDarkMode() {
     setTimeout(() => {
         document.body.style.transition = '';
     }, 500);
-                                                      }
+}
 
 function getCustomAdvice(age) {
     if (age < 13) {
