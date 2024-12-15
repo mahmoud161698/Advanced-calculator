@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع متعدد الوظائف لحساب العمر، الابراج، وقياس الحب.">
+    <meta name="keywords" content="حساب العمر, الابراج, قياس الحب, محمود مطراوي">
+    <meta name="author" content="Mahmoud Matrawy">
     <title>موقع متعدد الوظائف - محمود مطراوي</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-mode">
+    <!-- Welcome Screen -->
     <div id="welcomeScreen">
         <h1 id="welcomeText">Welcome to Elmatrawy home</h1>
         <div id="portal"></div>
     </div>
 
-    <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙</button>
+    <!-- Toggle Dark Mode Button -->
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">🌙</button>
+
+    <!-- Main Page -->
     <div id="mainPage" class="hidden">
         <h1>موقع متعدد الوظائف</h1>
         <div class="options">
-            <button onclick="loadSection('age')">احسب العمر</button>
-            <button onclick="loadSection('zodiac')">أنت والنجوم</button>
-            <button onclick="loadSection('love')">قياس الحب</button>
-            <button onclick="contactDeveloper()">تواصل معنا</button>
+            <button onclick="loadSection('age')" aria-label="احسب العمر">احسب العمر</button>
+            <button onclick="loadSection('zodiac')" aria-label="أنت والنجوم">أنت والنجوم</button>
+            <button onclick="loadSection('love')" aria-label="قياس الحب">قياس الحب</button>
+            <button onclick="contactDeveloper()" aria-label="تواصل معنا">تواصل معنا</button>
         </div>
     </div>
 
+    <!-- Age Section -->
     <div id="ageSection" class="section hidden">
-        <button class="backButton" onclick="goBack()">رجوع</button>
+        <button class="backButton" onclick="goBack()" aria-label="رجوع">رجوع</button>
         <h1>حاسبة العمر المتقدمة</h1>
         <label for="birthdate">تاريخ الميلاد:</label>
         <input type="date" id="birthdate">
         <label for="birthtime">ساعة الميلاد:</label>
         <input type="time" id="birthtime">
-        <button onclick="calculateAge()">احسب العمر</button>
-        <button onclick="randomizeBirthTime()">اختيار ساعة عشوائية</button>
+        <button onclick="calculateAge()" aria-label="احسب العمر">احسب العمر</button>
+        <button onclick="randomizeBirthTime()" aria-label="اختيار ساعة عشوائية">اختيار ساعة عشوائية</button>
         <table id="ageResultTable" style="display: none;">
             <tr>
                 <th>المعلومة</th>
@@ -68,12 +76,13 @@
         </table>
     </div>
 
+    <!-- Zodiac Section -->
     <div id="zodiacSection" class="section hidden">
-        <button class="backButton" onclick="goBack()">رجوع</button>
+        <button class="backButton" onclick="goBack()" aria-label="رجوع">رجوع</button>
         <h1>أنت والنجوم</h1>
         <label for="zodiacBirthdate">تاريخ الميلاد:</label>
         <input type="date" id="zodiacBirthdate">
-        <button onclick="calculateZodiac()">أنت والنجوم</button>
+        <button onclick="calculateZodiac()" aria-label="أنت والنجوم">أنت والنجوم</button>
         <table id="zodiacResultTable" style="display: none;">
             <tr>
                 <th>المعلومة</th>
@@ -82,19 +91,20 @@
         </table>
     </div>
 
+    <!-- Love Section -->
     <div id="loveSection" class="section hidden">
-        <button class="backButton" onclick="goBack()">رجوع</button>
+        <button class="backButton" onclick="goBack()" aria-label="رجوع">رجوع</button>
         <h1>مقياس الحب الخارق</h1>
         <div id="heart">❤️</div>
         <h2>اكتشف نسبة الحب بينكما!</h2>
         <input type="text" id="name1" placeholder="الاسم الأول">
         <input type="text" id="name2" placeholder="الاسم الثاني">
         <br>
-        <button onclick="calculateLove()">احسب نسبة الحب!</button>
+        <button onclick="calculateLove()" aria-label="احسب نسبة الحب!">احسب نسبة الحب!</button>
         <div id="result"></div>
         <div id="shareButtons">
-            <button class="shareBtn" onclick="share('facebook')">شارك على Facebook</button>
-            <button class="shareBtn" onclick="share('twitter')">شارك على Twitter</button>
+            <button class="shareBtn" onclick="share('facebook')" aria-label="شارك على Facebook">شارك على Facebook</button>
+            <button class="shareBtn" onclick="share('twitter')" aria-label="شارك على Twitter">شارك على Twitter</button>
         </div>
         <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
         <audio id="resultSound" src="https://www.soundjay.com/misc/sounds/magic-chime-01.mp3"></audio>
@@ -108,4 +118,4 @@
     </footer>
     <script src="script.js"></script>
 </body>
-            </html>
+</html>
