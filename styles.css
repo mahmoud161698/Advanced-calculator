@@ -1,11 +1,12 @@
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
     text-align: center;
-    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* صورة خلفية مناسبة */
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Background image */
     background-size: cover;
     background-position: center;
     padding: 20px;
-    color: white; /* تغيير لون النص ليكون مرئيًا على الخلفية */
+    color: white; /* Text color */
     transition: background-color 0.5s, color 0.5s;
 }
 
@@ -15,9 +16,10 @@ body.dark-mode {
 }
 
 h1 {
-    color: #ff4d4d;
+    color: #ff0000;
 }
 
+/* Heart Animation */
 #heart {
     font-size: 100px;
     color: #ff4d4d;
@@ -30,6 +32,7 @@ h1 {
     100% { transform: scale(1); }
 }
 
+/* Input and Button Styles */
 input, button {
     margin: 10px;
     padding: 10px;
@@ -50,10 +53,11 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* Result Section */
 #result {
     font-size: 24px;
     margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنتيجة */
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
     padding: 10px;
     border-radius: 5px;
     animation: fadeIn 1s;
@@ -64,21 +68,7 @@ button:hover {
     to { opacity: 1; }
 }
 
-.heart {
-    position: fixed;
-    top: -1vh;
-    font-size: 20px;
-    transform: translateY(0);
-    animation: fall 3s linear forwards;
-    color: #ff4d4d;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(105vh);
-    }
-}
-
+/* Share Buttons */
 #shareButtons {
     margin-top: 20px;
     display: none;
@@ -100,44 +90,47 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* Programmer Message */
 .programmer-message {
     margin-top: 20px;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Additional styles for the main page and other sections */
+/* Section Styles */
 #mainPage, .section {
-    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
     border-radius: 8px;
-    box-shadow: none; /* Removed shadow for full transparency */
+    box-shadow: none;
     padding: 20px;
     width: 90%;
     max-width: 600px;
-    margin-top: 20px;
-    color: #333; /* Darker text color for better visibility */
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    margin: 20px auto;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     transition: opacity 0.5s, transform 0.5s;
 }
 
 body.dark-mode #mainPage, body.dark-mode .section {
-    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
+    background-color: rgba(0, 0, 0, 0.8);
     box-shadow: none;
-    color: #fff; /* Lighter text color for dark mode */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Label Styles */
 label {
     display: block;
     margin: 10px 0;
     font-size: 18px;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 body.dark-mode label {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Input Styles */
 input[type="date"], input[type="time"], textarea {
     width: calc(100% - 20px);
     padding: 8px;
@@ -145,24 +138,20 @@ input[type="date"], input[type="time"], textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
+    background-color: rgba(255, 255, 255, 0.8);
     color: #333;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     transition: background-color 0.3s, transform 0.3s;
 }
 
 body.dark-mode input[type="date"], body.dark-mode input[type="time"], body.dark-mode textarea {
-    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-color: #555;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-textarea {
-    height: 100px;
-    resize: vertical;
-}
-
+/* Button Styles */
 button {
     padding: 10px 20px;
     font-size: 18px;
@@ -173,7 +162,7 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s;
     margin-top: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
@@ -189,125 +178,30 @@ body.dark-mode button:hover {
     background-color: #45a049;
 }
 
-#result, #zodiacResult, #customAdvice {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333;
-    animation: slideIn 1s;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
-}
-
-body.dark-mode #result, body.dark-mode #zodiacResult, body.dark-mode #customAdvice {
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
-}
-
-@keyframes slideIn {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 body.dark-mode table {
-    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: right;
-    background-color: rgba(255, 255, 255, 0); /* Completely transparent background */
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white text shadow */
+    background-color: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 body.dark-mode th, body.dark-mode td {
     border-color: #555;
-    background-color: rgba(0, 0, 0, 0); /* Completely transparent background in dark mode */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle black text shadow for dark mode */
-}
-
-th {
-    background-color: rgba(76, 175, 80, 0); /* Completely transparent background */
-    color: white;
-}
-
-body.dark-mode th {
-    background-color: rgba(76, 175, 80, 0); /* Completely transparent background in dark mode */
-}
-
-tr:nth-child(even) {
-    background-color: rgba(242, 242, 242, 0); /* Completely transparent background */
-}
-
-body.dark-mode tr:nth-child(even) {
-    background-color: rgba(51, 51, 51, 0); /* Completely transparent background in dark mode */
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.options button {
-    background-color: #007BFF;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.options button:hover {
-    background-color: #0056b3;
-}
-
-.hidden {
-    display: none;
-}
-
-.toggle-dark-mode {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-    transition: color 0.3s ease, transform 0.3s;
-}
-
-body.dark-mode .toggle-dark-mode {
-    color: #fff;
-}
-
-.toggle-dark-mode:hover {
-    color: #555;
-    transform: scale(1.1);
-}
-
-body.dark-mode .toggle-dark-mode:hover {
-    color: #ccc;
-}
-
-.backButton {
-    background-color: #FF4D4D;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s;
-    margin-bottom: 20px;
-}
-
-.backButton:hover {
-    background-color: #FF3333;
-    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Welcome Screen Styles */
@@ -317,7 +211,7 @@ body.dark-mode .toggle-dark-mode:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: #000;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -327,10 +221,44 @@ body.dark-mode .toggle-dark-mode:hover {
 }
 
 #welcomeText {
-    color: #ff0000;
+    color: #8B0000; /* Dark red color for blood effect */
     font-size: 48px;
     margin-bottom: 20px;
     animation: pulseText 2s infinite;
+    position: relative;
+    text-shadow: 
+        0 0 5px #8B0000, 
+        0 0 10px #8B0000, 
+        0 0 20px #8B0000, 
+        0 0 30px #8B0000, 
+        0 0 40px #8B0000;
+    background: linear-gradient(to right, #8B0000, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Creepster', cursive; /* Use a creepy font for the effect */
+}
+
+#welcomeText::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #8B0000;
+    border-radius: 50%;
+    animation: drip 2s infinite;
+}
+
+@keyframes drip {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100px) scale(0);
+        opacity: 0;
+    }
 }
 
 @keyframes pulseText {
@@ -345,7 +273,7 @@ body.dark-mode .toggle-dark-mode:hover {
     background-color: #000;
     border-radius: 50%;
     animation: portalAnimation 2s infinite;
-    box-shadow: 0 0 20px #ff0000;
+    box-shadow: 0 0 20px #8B0000;
 }
 
 @keyframes portalAnimation {
@@ -354,7 +282,7 @@ body.dark-mode .toggle-dark-mode:hover {
     100% { transform: scale(1); }
 }
 
-/* إضافة الأنميشن للأقسام */
+/* Hidden Class */
 .hidden {
     display: none;
 }
@@ -370,7 +298,7 @@ body.dark-mode .toggle-dark-mode:hover {
     transform: translateY(0);
 }
 
-/* إضافة الأنميشن للصفحة الرئيسية */
+/* Main Page Animation */
 #mainPage {
     opacity: 0;
     transform: translateY(20px);
@@ -380,14 +308,4 @@ body.dark-mode .toggle-dark-mode:hover {
 #mainPage.show {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* تأثيرات بصرية لعرض النتائج */
-#result {
-    animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+                                }
