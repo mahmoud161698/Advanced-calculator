@@ -1,8 +1,10 @@
-var birthdate;
-var birthtime;
-var intervalId;
-var countdownInterval;
+// Global Variables
+let birthdate;
+let birthtime;
+let intervalId;
+let countdownInterval;
 
+// Zodiac Signs Data
 const zodiacSigns = {
     "الجدي": {
         traits: "صلابة، عملية، منظمة",
@@ -54,6 +56,7 @@ const zodiacSigns = {
     }
 };
 
+// Function to Load Sections
 function loadSection(section) {
     document.getElementById('mainPage').classList.add('hidden');
     document.getElementById('ageSection').classList.add('hidden');
@@ -64,9 +67,10 @@ function loadSection(section) {
     sectionElement.classList.remove('hidden');
     setTimeout(() => {
         sectionElement.classList.add('show');
-    }, 10); // قليلاً من التأخير لضمان تطبيق الأنميشن بشكل صحيح
+    }, 10); // Small delay to ensure the animation is applied correctly
 }
 
+// Function to Go Back to Main Page
 function goBack() {
     document.getElementById('mainPage').classList.remove('hidden');
     document.getElementById('ageSection').classList.remove('show');
@@ -78,12 +82,13 @@ function goBack() {
         document.getElementById('ageSection').classList.add('hidden');
         document.getElementById('zodiacSection').classList.add('hidden');
         document.getElementById('loveSection').classList.add('hidden');
-    }, 10); // قليلاً من التأخير لضمان تطبيق الأنميشن بشكل صحيح
+    }, 10); // Small delay to ensure the animation is applied correctly
 }
 
+// Function to Calculate Age
 function calculateAge() {
-    var birthdateString = document.getElementById('birthdate').value;
-    var birthtimeString = document.getElementById('birthtime').value;
+    const birthdateString = document.getElementById('birthdate').value;
+    const birthtimeString = document.getElementById('birthtime').value;
     if (!birthdateString) {
         alert('يرجى إدخال تاريخ الميلاد.');
         return;
@@ -94,7 +99,7 @@ function calculateAge() {
     }
 
     birthdate = new Date(birthdateString + 'T' + birthtimeString);
-    var today = new Date();
+    const today = new Date();
 
     if (today < birthdate) {
         alert('تاريخ الميلاد يجب أن يكون قبل اليوم.');
@@ -112,50 +117,52 @@ function calculateAge() {
     updateResultTable('ageResultTable', 'نصيحة مخصصة', customAdvice);
 }
 
+// Function to Update Result Table
 function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
+    const table = document.getElementById(tableId);
     table.style.display = 'table';
     
-    var cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    var cell = document.getElementById(cellId);
+    const cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
+    const cell = document.getElementById(cellId);
     if (cell) {
         cell.textContent = value;
     }
 }
 
+// Function to Update Age
 function updateAge() {
-    var today = new Date();
-    var ageMilliseconds = today - birthdate;
+    const today = new Date();
+    const ageMilliseconds = today - birthdate;
     
-    // حساب السنوات والأشهر والأيام بدقة
-    var years = today.getFullYear() - birthdate.getFullYear();
-    var months = today.getMonth() - birthdate.getMonth();
-    var days = today.getDate() - birthdate.getDate();
+    // Calculate years, months, and days accurately
+    let years = today.getFullYear() - birthdate.getFullYear();
+    let months = today.getMonth() - birthdate.getMonth();
+    let days = today.getDate() - birthdate.getDate();
 
-    // تصحيح الحسابات إذا كان اليوم الحالي قبل يوم الميلاد في الشهر الحالي
+    // Correct calculations if the current day is before the birth day in the current month
     if (days < 0) {
         months--;
-        var lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
         days += lastMonth.getDate();
     }
 
-    // تصحيح الحسابات إذا كان الشهر الحالي قبل شهر الميلاد
+    // Correct calculations if the current month is before the birth month
     if (months < 0) {
         years--;
         months += 12;
     }
 
-    // حساب الأسابيع والأيام المتبقية
-    var totalDays = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24));
-    var weeks = Math.floor(totalDays / 7);
-    var remainingDays = totalDays % 7;
+    // Calculate weeks and remaining days
+    const totalDays = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(totalDays / 7);
+    const remainingDays = totalDays % 7;
 
-    // حساب الساعات والدقائق والثواني
-    var hours = today.getHours() - birthdate.getHours();
-    var minutes = today.getMinutes() - birthdate.getMinutes();
-    var seconds = today.getSeconds() - birthdate.getSeconds();
+    // Calculate hours, minutes, and seconds
+    let hours = today.getHours() - birthdate.getHours();
+    let minutes = today.getMinutes() - birthdate.getMinutes();
+    let seconds = today.getSeconds() - birthdate.getSeconds();
 
-    // تصحيح الحسابات للساعات والدقائق والثواني
+    // Correct calculations for hours, minutes, and seconds
     if (seconds < 0) {
         minutes--;
         seconds += 60;
@@ -169,7 +176,7 @@ function updateAge() {
         hours += 24;
     }
 
-    // تحديث جدول النتائج
+    // Update the result table
     updateResultTable('ageResultTable', 'عمرك', `${years} سنة و ${months} أشهر و ${days} أيام و ${hours} ساعات و ${minutes} دقائق و ${seconds} ثواني`);
     updateResultTable('ageResultTable', 'العمر بالأشهر', `${years * 12 + months} أشهر و ${days} أيام`);
     updateResultTable('ageResultTable', 'العمر بالأسابيع', `${weeks} أسابيع و ${remainingDays} أيام`);
@@ -179,9 +186,10 @@ function updateAge() {
     updateResultTable('ageResultTable', 'العمر بالثواني', `${Math.floor(ageMilliseconds / 1000)} ثواني`);
 }
 
+// Function to Calculate Next Birthday
 function calculateNextBirthday() {
-    var today = new Date();
-    var nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+    const today = new Date();
+    let nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
     if (today > nextBirthday) {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
@@ -190,9 +198,9 @@ function calculateNextBirthday() {
         clearInterval(countdownInterval);
     }
 
-    countdownInterval = setInterval(function() {
-        var now = new Date();
-        var timeDifference = nextBirthday - now;
+    countdownInterval = setInterval(() => {
+        const now = new Date();
+        const timeDifference = nextBirthday - now;
 
         if (timeDifference <= 0) {
             clearInterval(countdownInterval);
@@ -200,26 +208,28 @@ function calculateNextBirthday() {
             return;
         }
 
-        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
         updateResultTable('ageResultTable', 'عيد ميلادك القادم', `${days} يوم, ${hours} ساعة, ${minutes} دقيقة, ${seconds} ثانية`);
     }, 1000);
 }
 
+// Function to Calculate Zodiac
 function calculateZodiac() {
-    var zodiacBirthdateString = document.getElementById('zodiacBirthdate').value;
+    const zodiacBirthdateString = document.getElementById('zodiacBirthdate').value;
     if (!zodiacBirthdateString) {
         alert('يرجى إدخال تاريخ الميلاد.');
         return;
     }
 
-    var zodiacBirthdate = new Date(zodiacBirthdateString);
+    const zodiacBirthdate = new Date(zodiacBirthdateString);
     findZodiacSign(zodiacBirthdate);
 }
 
+// Function to Find Zodiac Sign
 function findZodiacSign(date) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
@@ -257,49 +267,31 @@ function findZodiacSign(date) {
     updateResultTable('zodiacResultTable', 'نصيحة البرج', signInfo.advice);
 }
 
-function updateResultTable(tableId, key, value) {
-    var table = document.getElementById(tableId);
-    table.style.display = 'table';
-    
-    var existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
-    
-    if (existingRow) {
-        existingRow.cells[1].textContent = value;
-    } else {
-        var newRow = table.insertRow(-1);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        cell1.textContent = key;
-        cell2.textContent = value;
-    }
-}
-
+// Function to Randomize Birth Time
 function randomizeBirthTime() {
-    var randomHour = Math.floor(Math.random() * 24);
-    var randomMinute = Math.floor(Math.random() * 60);
-    var birthtime = `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`;
+    const randomHour = Math.floor(Math.random() * 24);
+    const randomMinute = Math.floor(Math.random() * 60);
+    const birthtime = `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`;
     document.getElementById('birthtime').value = birthtime;
 }
 
+// Function to Contact Developer
 function contactDeveloper() {
     window.location.href = 'https://wa.me/2001104865607';
 }
 
+// Function to Toggle Dark Mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    var toggleButton = document.querySelector('.toggle-dark-mode');
+    const toggleButton = document.querySelector('.toggle-dark-mode');
     if (document.body.classList.contains('dark-mode')) {
         toggleButton.textContent = '🌙';
     } else {
         toggleButton.textContent = '☀️';
     }
-    // إضافة تأثير بصري سريع للتبديل
-    document.body.style.transition = 'background-color 0.5s, color 0.5s';
-    setTimeout(() => {
-        document.body.style.transition = '';
-    }, 500);
 }
 
+// Function to Get Custom Advice
 function getCustomAdvice(age) {
     if (age < 13) {
         return "احرص على طاعة والديك وأداء واجباتك المدرسية بإتقان.";
@@ -318,7 +310,7 @@ function getCustomAdvice(age) {
     }
 }
 
-// قياس الحب
+// Function to Calculate Love Percentage
 function calculateLove() {
     const name1 = document.getElementById('name1').value;
     const name2 = document.getElementById('name2').value;
@@ -334,6 +326,7 @@ function calculateLove() {
     }
 }
 
+// Function to Get Love Message
 function getLoveMessage(percentage) {
     if (percentage < 50) {
         return "غير يسطا العلاقه دي مش نافعة 😂";
@@ -344,6 +337,7 @@ function getLoveMessage(percentage) {
     }
 }
 
+// Function to Share on Social Media
 function share(platform) {
     const result = document.getElementById('result').innerText;
     let url = '';
@@ -355,6 +349,7 @@ function share(platform) {
     window.open(url, '_blank');
 }
 
+// Function to Play Sound
 function playSound(soundId) {
     const sound = document.getElementById(soundId);
     sound.play();
