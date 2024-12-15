@@ -122,10 +122,16 @@ function updateResultTable(tableId, key, value) {
     const table = document.getElementById(tableId);
     table.style.display = 'table';
     
-    const cellId = key.replace(/\s+/g, ''); // Remove spaces to form a valid ID
-    const cell = document.getElementById(cellId);
-    if (cell) {
-        cell.textContent = value;
+    const existingRow = Array.from(table.rows).find(row => row.cells[0].textContent === key);
+    
+    if (existingRow) {
+        existingRow.cells[1].textContent = value;
+    } else {
+        const newRow = table.insertRow(-1);
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        cell1.textContent = key;
+        cell2.textContent = value;
     }
 }
 
